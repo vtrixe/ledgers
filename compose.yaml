@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: 'postgres:18'
+    environment:
+      - 'POSTGRES_DB=ledgers'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=ledgers'
+    ports:
+      - '5432'
+  kafka:
+    image: 'apache/kafka-native:latest'
+    ports:
+      - '9092:9092'
+  grafana-lgtm:
+    image: 'grafana/otel-lgtm:latest'
+    ports:
+      - '3000:3000'
+      - '4317'
+      - '4318'

@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: ledgers
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      # Schema is owned by Flyway; Hibernate only checks entities against it.
+      ddl-auto: validate
+
+  flyway:
+    locations: classpath:db/migration
+
+  kafka:
+    consumer:
+      enable-auto-commit: false
+      isolation-level: read_committed
+      auto-offset-reset: earliest
+    producer:
+      acks: all
+      properties:
+        enable.idempotence: true
+    listener:
+      ack-mode: record
+
+  modulith:
+    events:
+      jdbc:
+        # TODO: move event_publication table into a Flyway migration.
+        schema-initialization:
+          enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
