@@ -45,3 +45,7 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+ledger:
+  # Root key for /admin endpoints (tenant and API-key management). Admin API is disabled when unset or shorter than 32 chars.
+  root-key: ${LEDGER_ROOT_KEY:}
