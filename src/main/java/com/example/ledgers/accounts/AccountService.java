@@ -3,10 +3,12 @@ package com.example.ledgers.accounts;
 import com.example.ledgers.accounts.dto.CreateAccountRequest;
 import com.example.ledgers.accounts.dto.UpdateAccountRequest;
 import com.example.ledgers.tenancy.TenantPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public interface AccountService {
@@ -27,5 +29,6 @@ public interface AccountService {
 
     List<Account> lockAccounts(UUID tenantId, Collection<UUID> accountIds);
 
-
+    @Transactional(readOnly = true)
+    Set<UUID> findAccountIdsUnder(UUID tenantId, String prefix);
 }

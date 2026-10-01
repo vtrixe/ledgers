@@ -19,6 +19,12 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     List<Account> findAllByTenantIdAndPathStartingWithOrderByPath(UUID tenantId, String prefix, Limit limit);
 
+    List<AccountId> findAllByTenantIdAndPathStartingWith(UUID tenantId, String prefix);
+
+    interface AccountId {
+        UUID getId();
+    }
+
     List<Account> findAllByTenantIdAndPathIn(UUID tenantId, Collection<String> paths);
 
     @Query(value = """

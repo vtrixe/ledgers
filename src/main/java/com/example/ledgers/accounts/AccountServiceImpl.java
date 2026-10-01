@@ -114,4 +114,14 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findByIdAndTenantId(accountId, tenantId)
                 .orElseThrow(() -> ApiException.notFound("ERR_ACCOUNT_NOT_FOUND", "No account " + accountId));
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Set<UUID> findAccountIdsUnder(UUID tenantId, String prefix) {
+        Set<UUID> accountIds = new HashSet<>();
+        for (AccountRepository.AccountId account : accountRepository.findAllByTenantIdAndPathStartingWith(tenantId, prefix)) {
+            accountIds.add(account.getId());
+        }
+        return accountIds;
+    }
 }

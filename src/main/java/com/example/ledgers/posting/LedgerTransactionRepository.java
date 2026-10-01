@@ -2,6 +2,7 @@ package com.example.ledgers.posting;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -15,4 +16,7 @@ public interface LedgerTransactionRepository extends JpaRepository<LedgerTransac
 
     @EntityGraph(attributePaths = "postings")
     Optional<LedgerTransaction> findByIdAndTenantId(UUID id, UUID tenantId);
+
+
+
 }

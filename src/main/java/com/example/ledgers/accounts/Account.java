@@ -50,6 +50,10 @@ public class Account {
 
     /** +1 for assets/expenses (debits increase them), -1 otherwise: display balance = SUM(amount) x normalSign. */
     public int normalSign() {
+        return normalSignOf(type);
+    }
+
+    public static int normalSignOf(String type) {
         return "assets".equals(type) || "expenses".equals(type) ? 1 : -1;
     }
 }

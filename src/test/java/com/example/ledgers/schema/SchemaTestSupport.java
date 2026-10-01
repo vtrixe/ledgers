@@ -24,7 +24,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  */
 @SpringBootTest
 @Import(TestcontainersConfiguration.class)
-abstract class SchemaTestSupport {
+public abstract class SchemaTestSupport {
 
     private static final SecureRandom RANDOM = new SecureRandom();
 
