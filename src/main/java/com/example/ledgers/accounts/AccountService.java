@@ -15,6 +15,8 @@ public interface AccountService {
 
     Account createAccount(TenantPrincipal principal, CreateAccountRequest request);
 
+    Account createSystemAccount(TenantPrincipal principal, String path);
+
     Account getAccount(TenantPrincipal principal, UUID accountId);
 
     List<Account> listAccounts(TenantPrincipal principal, String prefix, int limit);

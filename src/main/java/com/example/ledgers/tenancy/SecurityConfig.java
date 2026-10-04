@@ -41,7 +41,8 @@ public class SecurityConfig {
                         // First match wins: reads need ledger:read, account writes need accounts:manage.
                         .requestMatchers(HttpMethod.GET, "/v1/**").hasAuthority("SCOPE_" + Scopes.LEDGER_READ)
                         .requestMatchers("/v1/accounts/**").hasAuthority("SCOPE_" + Scopes.ACCOUNTS_MANAGE)
-                        .requestMatchers(HttpMethod.POST, "/v1/transactions").hasAuthority("SCOPE_" + Scopes.LEDGER_WRITE)
+                        .requestMatchers(HttpMethod.POST, "/v1/transactions", "/v1/conversions", "/v1/fx/revaluations")
+                        .hasAuthority("SCOPE_" + Scopes.LEDGER_WRITE)
                         .anyRequest().denyAll()
                 )
                 .exceptionHandling(e -> e

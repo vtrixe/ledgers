@@ -218,6 +218,13 @@ public class PostingServiceImpl implements PostingService {
 
     @Override
     @Transactional(readOnly = true)
+    public Optional<PostingResult> findExisting(TenantPrincipal principal, String idempotencyKey) {
+        return ledgerTransactionRepository.findByTenantIdAndIdempotencyKey(principal.tenantId(), idempotencyKey)
+                .map(transaction -> new PostingResult(toResponse(transaction), true));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public TransactionResponse getTransaction(TenantPrincipal principal, UUID transactionId) {
         return ledgerTransactionRepository.findByIdAndTenantId(transactionId, principal.tenantId())
                 .map(this::toResponse)

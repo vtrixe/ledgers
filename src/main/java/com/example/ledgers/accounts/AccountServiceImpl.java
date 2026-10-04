@@ -37,6 +37,17 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
+    public Account createSystemAccount(TenantPrincipal principal, String path) {
+        ledgerSession.bindActor(principal.actor());
+        return accountRepository.saveAndFlush(new Account()
+                .setTenantId(principal.tenantId())
+                .setPath(path)
+                .setAllowNegative(true)
+                .setMetadata(Map.of("system", true)));
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Account getAccount(TenantPrincipal principal, UUID accountId) {
         return findAccount(principal.tenantId(), accountId);

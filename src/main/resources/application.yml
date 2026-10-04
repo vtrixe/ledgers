@@ -49,3 +49,9 @@ springdoc:
 ledger:
   # Root key for /admin endpoints (tenant and API-key management). Admin API is disabled when unset or shorter than 32 chars.
   root-key: ${LEDGER_ROOT_KEY:}
+  fx:
+    max-rate-age: P7D            # a rate older than this (relative to effectiveAt) is not used
+    ecb:
+      enabled: true              # daily ECB reference rates via the Frankfurter API
+      cron: "0 30 16 * * MON-FRI" # Europe/Berlin; ECB publishes around 16:00 CET
+      url: https://api.frankfurter.dev/v1/latest
